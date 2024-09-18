@@ -2,38 +2,38 @@ from flask import Flask, request, jsonify
 import pandas as pd
 import asyncio
 from playwright.async_api import async_playwright
-import win32com.client as win32
+# import win32com.client as win32
 
 app = Flask(__name__)
 
 # Função para enviar o relatório por email após a execução
-def enviar_relatorio():
-    try:
-        outlook = win32.Dispatch('outlook.application')
-        namespace = outlook.GetNamespace('MAPI')
+# def enviar_relatorio():
+#     try:
+#         outlook = win32.Dispatch('outlook.application')
+#         namespace = outlook.GetNamespace('MAPI')
 
-        def achar_pasta_por_nome(nome_pasta, parent_folder=None):
-            if parent_folder is None:
-                parent_folder = namespace.Folders
+#         def achar_pasta_por_nome(nome_pasta, parent_folder=None):
+#             if parent_folder is None:
+#                 parent_folder = namespace.Folders
                 
-            for folder in parent_folder:
-                if folder.Name == nome_pasta:
-                    return folder
-                sub_folder = achar_pasta_por_nome(nome_pasta, folder.Folders)
-                if sub_folder:
-                    return sub_folder
-            return None 
+#             for folder in parent_folder:
+#                 if folder.Name == nome_pasta:
+#                     return folder
+#                 sub_folder = achar_pasta_por_nome(nome_pasta, folder.Folders)
+#                 if sub_folder:
+#                     return sub_folder
+#             return None 
         
-        sent_items_folder = achar_pasta_por_nome("Itens Enviados")
-        nome_remetente = 'Desconhecido' if not sent_items_folder else sent_items_folder.Items.GetLast().SenderName
+#         sent_items_folder = achar_pasta_por_nome("Itens Enviados")
+#         nome_remetente = 'Desconhecido' if not sent_items_folder else sent_items_folder.Items.GetLast().SenderName
         
-        mail = outlook.CreateItem(0)
-        mail.Subject = 'Relatório de Uso da Automação de Lançamento de Horas'
-        mail.Body = f'{nome_remetente} utilizou a automação de lançamento de horas.'
-        mail.To = 'daniellerodrigues@queirozcavalcanti.adv.br'
-        mail.Send()
-    except Exception as e:
-        print(f"Erro ao enviar o relatório: {str(e)}")
+#         mail = outlook.CreateItem(0)
+#         mail.Subject = 'Relatório de Uso da Automação de Lançamento de Horas'
+#         mail.Body = f'{nome_remetente} utilizou a automação de lançamento de horas.'
+#         mail.To = 'daniellerodrigues@queirozcavalcanti.adv.br'
+#         mail.Send()
+#     except Exception as e:
+#         print(f"Erro ao enviar o relatório: {str(e)}")
 
 # Função principal para executar a automação Playwright
 async def submit_form_async(df: pd.DataFrame, email: str, senha: str):
