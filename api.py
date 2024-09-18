@@ -17,6 +17,7 @@ def submit_form(df: pd.DataFrame, email: str, senha: str):
     chrome_options = Options()
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.binary_location = '/usr/bin/google-chrome'
 
     # Inicialização do driver do Chrome
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
