@@ -15,7 +15,6 @@ app = Flask(__name__)
 def submit_form(df: pd.DataFrame, email: str, senha: str):
     # Configuração do Chrome
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Executa o Chrome em modo headless
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
