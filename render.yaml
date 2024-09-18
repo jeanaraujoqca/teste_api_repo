@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: my-web-service
-    env: python
-    plan: starter
-    buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
-    autoDeploy: true
-    installCommand: ./install_chrome.sh
